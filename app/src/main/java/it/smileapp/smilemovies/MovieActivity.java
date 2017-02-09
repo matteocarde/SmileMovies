@@ -15,6 +15,8 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import it.smileapp.smilemovies.tabs.ActorsTab;
 import it.smileapp.smilemovies.tabs.InfoTab;
 import it.smileapp.smilemovies.tabs.ReviewsTab;
@@ -23,34 +25,35 @@ import it.smileapp.smilemovies.utilities.MoviesDB;
 
 public class MovieActivity extends AppCompatActivity {
 
-    private FragmentTabHost mTabHost;
-
     public JSONObject mMovie;
 
-    private TextView mYear;
-    private TextView mRatingText;
-    private TextView mTitle;
-    private ImageView mPoster;
-    private TextView mOriginalTitle;
-    private RatingBar mRatingBar;
+
+    @BindView(R.id.movie_iv_poster)
+    ImageView mPoster;
+    @BindView(R.id.movie_tv_title)
+    TextView mTitle;
+    @BindView(R.id.movie_tv_original_title)
+    TextView mOriginalTitle;
+    @BindView(R.id.movie_tv_rating_text)
+    TextView mRatingText;
+    @BindView(R.id.move_rb_rating)
+    RatingBar mRatingBar;
+    @BindView(R.id.movie_tv_year)
+    TextView mYear;
+    @BindView(android.R.id.tabhost)
+    FragmentTabHost mTabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
 
+        ButterKnife.bind(this);
+
         Context context = MovieActivity.this;
 
         Intent intent = getIntent();
 
-        mPoster = (ImageView) findViewById(R.id.movie_iv_poster);
-        mTitle = (TextView) findViewById(R.id.movie_tv_title);
-        mOriginalTitle = (TextView) findViewById(R.id.movie_tv_original_title);
-        mRatingText = (TextView) findViewById(R.id.movie_tv_rating_text);
-        mRatingBar = (RatingBar) findViewById(R.id.move_rb_rating);
-        mYear = (TextView) findViewById(R.id.movie_tv_year);
-
-        mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(context, getSupportFragmentManager(), android.R.id.tabcontent);
 
         TabHost.TabSpec infoTab = mTabHost.newTabSpec("infos").setIndicator(getString(R.string.movie_infos));

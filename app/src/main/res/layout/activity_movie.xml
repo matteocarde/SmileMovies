@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -36,9 +37,9 @@
                 android:layout_above="@+id/movie_tv_original_title"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:text="Movie Title"
                 android:textColor="#FFF"
-                android:textSize="28sp" />
+                android:textSize="28sp"
+                tools:text="Movie Title" />
 
             <TextView
                 android:id="@+id/movie_tv_original_title"
@@ -47,9 +48,9 @@
                 android:layout_above="@+id/movie_ll_film_infos"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:text="(Original Film Title)"
                 android:textColor="#FFF"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:text="(Original Film Title)" />
 
             <LinearLayout
                 android:id="@+id/movie_ll_film_infos"
@@ -69,9 +70,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
-                    android:text="6/10"
                     android:textColor="#fff"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="6/10" />
 
 
                 <RatingBar
@@ -94,9 +95,9 @@
                     android:id="@+id/movie_tv_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2016"
                     android:textColor="#FFF"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    tools:text="2016" />
 
             </LinearLayout>
 
@@ -117,13 +118,12 @@
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </FrameLayout>
+                android:layout_height="match_parent"></FrameLayout>
         </LinearLayout>
     </android.support.v4.app.FragmentTabHost>
 </LinearLayout>

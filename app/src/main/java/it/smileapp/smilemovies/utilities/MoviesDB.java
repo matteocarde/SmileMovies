@@ -29,9 +29,8 @@ public class MoviesDB {
     public static URL getMostPopularFilmsURL() throws MalformedURLException {
         Uri uri = Uri.parse(TMD_HOST)
                 .buildUpon()
-                .appendPath("discover")
                 .appendPath("movie")
-                .appendQueryParameter("sort_by", "popularity.desc")
+                .appendPath("popular")
                 .appendQueryParameter("api_key", TMD_KEY)
                 .build();
 
@@ -44,9 +43,8 @@ public class MoviesDB {
     public static URL getMostRatedFilmsURL() throws MalformedURLException {
         Uri uri = Uri.parse(TMD_HOST)
                 .buildUpon()
-                .appendPath("discover")
                 .appendPath("movie")
-                .appendQueryParameter("sort_by", "vote_average.desc")
+                .appendPath("top_rated")
                 .appendQueryParameter("api_key", TMD_KEY)
                 .build();
 

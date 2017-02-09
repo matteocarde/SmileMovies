@@ -2,11 +2,13 @@ package it.smileapp.smilemovies;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,9 +48,8 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
         mProgressBar = (ProgressBar) findViewById(R.id.main_progressbar);
 
         Context context = MainActivity.this;
-        int nOfColumnsInGrid = 2;
 
-        GridLayoutManager layoutManager = new GridLayoutManager(context, nOfColumnsInGrid);
+        GridLayoutManager layoutManager = new GridLayoutManager(context, calculateNoOfColumns(getBaseContext()));
 
         mPostersRecyclerView.setLayoutManager(layoutManager);
         mPostersRecyclerView.setHasFixedSize(true);
@@ -58,6 +59,14 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
 
         getMostPopularFilms();
 
+    }
+
+    //Suggested in Code Review. Stack Overflow: http://stackoverflow.com/questions/33575731/gridlayoutmanager-how-to-auto-fit-columns
+    public static int calculateNoOfColumns(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        int noOfColumns = (int) (dpWidth / 180);
+        return noOfColumns;
     }
 
     private void showGrid() {
@@ -171,13 +180,19 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
 
             URL url = params[0];
             try {
+
+                if (!NetworkUtils.isOnline(getApplicationContext())) {
+                    throw new Exception("No internet connection");
+                }
+
+
                 String unformattedResponse = NetworkUtils.getResponseFromHttpUrl(url);
-                if(unformattedResponse != null){
+                if (unformattedResponse != null) {
                     JSONObject response = new JSONObject(unformattedResponse);
                     JSONArray films = response.getJSONArray("results");
                     return films;
                 }
-                throw new Exception("No internet connection");
+                throw new Exception("Error in the response");
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;

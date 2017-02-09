@@ -120,11 +120,16 @@ public class TrailersTab extends Fragment implements TrailerAdapter.TrailerClick
         protected JSONArray doInBackground(URL... params) {
 
             try {
+
+                if (!NetworkUtils.isOnline(mContext)) {
+                    throw new Exception("No internet connection");
+                }
+
                 String result = NetworkUtils.getResponseFromHttpUrl(params[0]);
                 if (result != null) {
                     return new JSONObject(result).getJSONArray("youtube");
                 }
-                throw new Exception("No internet connection");
+                throw new Exception("Error getting request");
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;

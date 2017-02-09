@@ -28,7 +28,7 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterView
     private final PosterClickListener mClickListener;
     private JSONArray mMoviesList;
 
-    public interface PosterClickListener{
+    public interface PosterClickListener {
         void onPosterClick(int position);
     }
 
@@ -102,7 +102,13 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterView
                 mMovieTitle.setText(movieTitle);
 
                 //In this way I load images every time that I scroll right ?? Maybe consider caching.
-                Picasso.with(mContext).load(MoviesDB.getPhotoUrl(posterPath)).into(mMoviePoster);
+
+                Picasso.with(mContext)
+                        .load(MoviesDB.getPhotoUrl(posterPath))
+                        .placeholder(R.drawable.poster)
+                        .error(R.drawable.poster)
+                        .into(mMoviePoster);
+
                 mMovieRating.setRating(movieRating);
 
             } catch (JSONException e) {
