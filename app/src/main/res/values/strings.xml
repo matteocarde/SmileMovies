@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Smile Movies</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="sort_by_most_popular">Sort by most popular</string>
+    <string name="sort_by_most_rated">Sort by most rated</string>
+    <string name="sort_by_most_popular_italian">Sort by most popular italian films </string>
+    <string name="sort_by_most_rated_italian">Sort by most rated italian films</string>
+    <string name="get_matteos_favourites_films">Get Matteo\'s favourites films</string>
+    <string name="movie_infos">Info</string>
+    <string name="movie_trailers">Trailers</string>
+    <string name="movie_actors">Actors</string>
+    <string name="movie_reviews">Reviews</string>
+
+    <string name="lorem_ipsum_big">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla massa diam, tristique at ex in, imperdiet mattis tellus. Suspendisse mattis mauris ut tortor consequat dapibus. Suspendisse vestibulum diam eget volutpat sagittis. Curabitur consectetur massa leo, at vestibulum nulla vulputate sit amet. Vivamus vitae congue augue. Donec id cursus nibh. Integer dignissim hendrerit sem at dignissim. Suspendisse a velit eu elit molestie lacinia non vitae libero. Duis tempor pellentesque arcu ac mattis. Vestibulum in nibh ac metus lacinia elementum. Nam vel sollicitudin sem.</string>
+    <string name="description">Description</string>
+    <string name="connection_error">An error occurred. Please activate your internet connection and try again.</string>
+    <string name="no_trailer_available">No Trailer Available</string>
+    <string name="no_actors_available">No actors available</string>
+    <string name="no_reviews_available">No Reviews Available</string>
+</resources>

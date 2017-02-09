@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:orderInCategory="1"
+        android:id="@+id/menu_item_sort_popular"
+        android:title="@string/sort_by_most_popular">
+
+    </item>
+
+    <item
+        android:orderInCategory="2"
+        android:id="@+id/menu_item_sort_rated"
+        android:title="@string/sort_by_most_rated">
+
+    </item>
+
+    <item
+        android:orderInCategory="3"
+        android:id="@+id/menu_item_sort_popular_italian"
+        android:title="@string/sort_by_most_popular_italian">
+
+    </item>
+    <item
+        android:orderInCategory="3"
+        android:id="@+id/menu_item_sort_rated_italian"
+        android:title="@string/sort_by_most_rated_italian">
+
+    </item>
+    <item
+        android:orderInCategory="3"
+        android:id="@+id/menu_item_matteos_favourite"
+        android:title="@string/get_matteos_favourites_films">
+
+    </item>
+</menu>
