@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,21 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
-import it.smileapp.smilemovies.MainActivity;
 import it.smileapp.smilemovies.MovieActivity;
 import it.smileapp.smilemovies.R;
 import it.smileapp.smilemovies.adapters.TrailerAdapter;
-import it.smileapp.smilemovies.utilities.MoviesDB;
+import it.smileapp.smilemovies.utilities.MoviesDBRequests;
 import it.smileapp.smilemovies.utilities.NetworkUtils;
 
 public class TrailersTab extends Fragment implements TrailerAdapter.TrailerClickListener {
@@ -76,7 +70,7 @@ public class TrailersTab extends Fragment implements TrailerAdapter.TrailerClick
         try {
             String movieId = mMovie.getString("id");
 
-            URL url = MoviesDB.getMovieTrailersURL(movieId);
+            URL url = MoviesDBRequests.getMovieTrailersURL(movieId);
 
             new FetchTrailers().execute(url);
 
@@ -96,7 +90,7 @@ public class TrailersTab extends Fragment implements TrailerAdapter.TrailerClick
             JSONObject clickedTrailer = mTrailers.getJSONObject(position);
             String YTKey = clickedTrailer.getString("source");
 
-            Uri YTUri = MoviesDB.getYoutubeUri(YTKey);
+            Uri YTUri = MoviesDBRequests.getYoutubeUri(YTKey);
 
             Intent intent = new Intent(Intent.ACTION_VIEW, YTUri);
 

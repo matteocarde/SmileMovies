@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="filters_text">
+        <item>@string/filter_most_popular_text</item>
+        <item>@string/filter_most_rated_text</item>
+        <item>@string/filter_italian_most_popular_text</item>
+        <item>@string/filter_italian_most_rated_text</item>
+        <item>@string/filter_my_favourites_text</item>
+    </array>
+    <array name="filters_values">
+        <item>@string/filter_most_popular_key</item>
+        <item>@string/filter_most_rated_key</item>
+        <item>@string/filter_italian_most_popular_key</item>
+        <item>@string/filter_italian_most_rated_key</item>
+        <item>@string/filter_my_favourites_key</item>
+    </array>
+</resources>

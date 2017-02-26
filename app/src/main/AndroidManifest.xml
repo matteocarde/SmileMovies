@@ -20,13 +20,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MovieActivity"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"></meta-data>
+                android:value=".MainActivity" />
+        </activity>
+
+        <provider
+            android:name=".db.MoviesProvider"
+            android:authorities="@string/authority"
+            android:exported="false" />
+        <service android:name=".jobs.MoviesReminderJobService"
+            android:exported="false"/>
+
+        <activity
+            android:name=".PreferencesActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
     </application>
 

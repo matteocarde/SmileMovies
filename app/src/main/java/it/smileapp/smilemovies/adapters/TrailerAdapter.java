@@ -15,7 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import it.smileapp.smilemovies.R;
-import it.smileapp.smilemovies.utilities.MoviesDB;
+import it.smileapp.smilemovies.utilities.MoviesDBRequests;
 
 /**
  * Created by carde on 08/02/17.
@@ -37,6 +37,11 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
         mClickListener = clickListener;
     }
 
+    /**
+     * Reloads the content of the Adapter
+     *
+     * @param trailers - The new JSONArray containing the new trailers to be displayed
+     */
     public void reloadContent(JSONArray trailers) {
         mTrailers = trailers;
         notifyDataSetChanged();
@@ -86,7 +91,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
                 String videoTitle = trailer.getString("name");
 
                 String trailerYTKey = trailer.getString("source");
-                Picasso.with(mContext).load(MoviesDB.getTrailerThumbnailFromYT(trailerYTKey)).into(mThumbnail);
+                Picasso.with(mContext).load(MoviesDBRequests.getTrailerThumbnailFromYT(trailerYTKey)).into(mThumbnail);
 
                 mVideoTitle.setText(videoTitle);
 

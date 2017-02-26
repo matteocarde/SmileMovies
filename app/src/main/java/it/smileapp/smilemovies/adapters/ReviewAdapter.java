@@ -2,21 +2,16 @@ package it.smileapp.smilemovies.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import it.smileapp.smilemovies.R;
-import it.smileapp.smilemovies.utilities.MoviesDB;
 
 /**
  * Created by carde on 08/02/17.
@@ -32,6 +27,11 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         mContext = context;
     }
 
+    /**
+     * Reloads the content of the Adapter
+     *
+     * @param reviews - The new JSONArray containing the new reviews to be displayed
+     */
     public void reloadContent(JSONArray reviews) {
         mReviews = reviews;
         notifyDataSetChanged();

@@ -16,7 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import it.smileapp.smilemovies.R;
-import it.smileapp.smilemovies.utilities.MoviesDB;
+import it.smileapp.smilemovies.utilities.MoviesDBRequests;
 
 /**
  * Created by carde on 06/02/17.
@@ -38,6 +38,10 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterView
         mClickListener = clickListener;
     }
 
+    /**
+     * Reloads the content of the Adapter
+     * @param moviesList - The new JSONArray containing the new movies to be displayed
+     */
     public void reloadMoviesList(JSONArray moviesList) {
         mMoviesList = moviesList;
         if (mMoviesList != null) {
@@ -104,7 +108,7 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterView
                 //In this way I load images every time that I scroll right ?? Maybe consider caching.
 
                 Picasso.with(mContext)
-                        .load(MoviesDB.getPhotoUrl(posterPath))
+                        .load(MoviesDBRequests.getPhotoUrl(posterPath))
                         .placeholder(R.drawable.poster)
                         .error(R.drawable.poster)
                         .into(mMoviePoster);

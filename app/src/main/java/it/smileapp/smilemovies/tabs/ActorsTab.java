@@ -1,7 +1,6 @@
 package it.smileapp.smilemovies.tabs;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,8 +21,7 @@ import java.net.URL;
 import it.smileapp.smilemovies.MovieActivity;
 import it.smileapp.smilemovies.R;
 import it.smileapp.smilemovies.adapters.ActorAdapter;
-import it.smileapp.smilemovies.adapters.TrailerAdapter;
-import it.smileapp.smilemovies.utilities.MoviesDB;
+import it.smileapp.smilemovies.utilities.MoviesDBRequests;
 import it.smileapp.smilemovies.utilities.NetworkUtils;
 
 public class ActorsTab extends Fragment {
@@ -70,7 +68,7 @@ public class ActorsTab extends Fragment {
         try {
             String movieId = mMovie.getString("id");
 
-            URL url = MoviesDB.getMovieActorsURL(movieId);
+            URL url = MoviesDBRequests.getMovieActorsURL(movieId);
 
             new ActorsTab.FetchActors().execute(url);
 

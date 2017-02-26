@@ -2,7 +2,6 @@ package it.smileapp.smilemovies.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import it.smileapp.smilemovies.R;
-import it.smileapp.smilemovies.utilities.MoviesDB;
+import it.smileapp.smilemovies.utilities.MoviesDBRequests;
 
 /**
  * Created by carde on 08/02/17.
@@ -32,6 +31,10 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.ActorViewHol
         mContext = context;
     }
 
+    /**
+     * Reloads the content of the Adapter
+     * @param actors - The new JSONArray containing the new actors
+     */
     public void reloadContent(JSONArray actors){
         mActors = actors;
         notifyDataSetChanged();
@@ -77,7 +80,7 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.ActorViewHol
 
                 String profilePath = actor.getString("profile_path");
                 if (profilePath != "null") {
-                    Picasso.with(mContext).load(MoviesDB.getPhotoUrl(profilePath)).into(mProfilePicture);
+                    Picasso.with(mContext).load(MoviesDBRequests.getPhotoUrl(profilePath)).into(mProfilePicture);
                 }
 
                 mActorName.setText(actorName);

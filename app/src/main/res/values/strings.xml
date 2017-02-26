@@ -17,4 +17,33 @@
     <string name="no_trailer_available">No Trailer Available</string>
     <string name="no_actors_available">No actors available</string>
     <string name="no_reviews_available">No Reviews Available</string>
+    <string name="toggle_favourite">Toggle Favourite</string>
+
+    <string name="authority" translatable="false">it.smileapp.smilemovies</string>
+    <string name="get_my_favourites_films">Get My Favourites</string>
+
+    <string name="broadcast_event_moviedatachanged" translatable="false">it.smileapp.smileamovies.moviedatachanged</string>
+    <string name="toast_success_favourite_add">Movie inserted in your favourites</string>
+    <string name="toast_success_favourite_remove">Movie removed from your favourites</string>
+    <string name="preferences">Preferences</string>
+
+    <string name="preferences_movie_filter_text">Preferred movie filter to display in home screen</string>
+    <string name="preferences_movie_filter_key" translatable="false">preferred_movie_filter</string>
+    <string name="preferences_movie_filter_default" translatable="false">most_popular</string>
+
+    <string name="filter_most_popular_key" translatable="false">most_popular</string>
+    <string name="filter_most_rated_key" translatable="false">most_rated</string>
+    <string name="filter_italian_most_popular_key" translatable="false">italian_most_popular</string>
+    <string name="filter_italian_most_rated_key" translatable="false">italian_most_rated</string>
+    <string name="filter_my_favourites_key" translatable="false">my_favourites</string>
+
+    <string name="filter_most_popular_text">Most popular</string>
+    <string name="filter_most_rated_text">Most rated</string>
+    <string name="filter_italian_most_popular_text">Most popular italian films</string>
+    <string name="filter_italian_most_rated_text">Most rated italian films</string>
+    <string name="filter_my_favourites_text">My favourites</string>
+    <string name="notification_suggest_title">Watch one of your favourite movies again !</string>
+    <string name="notification_suggest_text">Why don\'t you watch \"%1$s\" again ?</string>
+    <string name="you_have_not_added_a_movie_to_your_favorites_yet">You have not added a movie to your favorites yet.</string>
+
 </resources>
