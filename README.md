@@ -10,10 +10,10 @@ Be careful before running to add you own API key of themoviedb.org here:
 ## Version 2
 ### Functionalities
 * Added the possibility to add a move to your favourites list
-    * *This functionality is implemented using the internal **SQLiteDatabase** and a **ContentProvider** to fetch the data from the database*
+    * This functionality is implemented using the internal **SQLiteDatabase** and a **ContentProvider** to fetch the data from the database
 * Added the possibility to **add a preference** (using SharedPreferences) to decide which filter show first when opening the app
 * Added a **Notification** that every day, if the user is at home (aka the phone is charging) sends a notification to the user to suggest him to re-watch a movie from his favourite list.
-    * *This functionality is implemented using a **FirebaseJobDispatcher** to schedule an **Intent Service** to display the notification when the app is on background*
+    * This functionality is implemented using a **FirebaseJobDispatcher** to schedule an **Intent Service** to display the notification when the app is on background
 * Re-designed the movie details activity interface using a **ConstraintLayout** and a **ViewPager** instead of nested layouts and a TabHost
 
 ##Screenshots
