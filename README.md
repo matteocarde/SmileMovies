@@ -10,14 +10,18 @@ Be careful before running to add you own API key of themoviedb.org here:
 ## Version 2
 ### Functionalities
 * Added the possibility to add a move to your favourites list
-    * *This functionality is implemented using the internal **SQLiteDatabase** and a **ContentProvider** to fetch the data from the database*
+    * This functionality is implemented using the internal **SQLiteDatabase** and a **ContentProvider** to fetch the data from the database
 * Added the possibility to **add a preference** (using SharedPreferences) to decide which filter show first when opening the app
 * Added a **Notification** that every day, if the user is at home (aka the phone is charging) sends a notification to the user to suggest him to re-watch a movie from his favourite list.
-    * *This functionality is implemented using a **FirebaseJobDispatcher** to schedule an **Intent Service** to display the notification when the app is on background*
+    * This functionality is implemented using a **FirebaseJobDispatcher** to schedule an **Intent Service** to display the notification when the app is on background
 * Re-designed the movie details activity interface using a **ConstraintLayout** and a **ViewPager** instead of nested layouts and a TabHost
 
 ##Screenshots
-
+![screenshot_1488116254](https://cloud.githubusercontent.com/assets/2022691/23340268/983ad63e-fc33-11e6-9739-bf11f596c59b.png)
+![screenshot_1488116203](https://cloud.githubusercontent.com/assets/2022691/23340270/9862950c-fc33-11e6-84c9-e30fc0fa688c.png)
+![screenshot_1488116222](https://cloud.githubusercontent.com/assets/2022691/23340271/9864c5b6-fc33-11e6-8bfe-466330966875.png)
+![screenshot_1488116242](https://cloud.githubusercontent.com/assets/2022691/23340272/986791f6-fc33-11e6-81d7-5577434c4f66.png)
+![screenshot_1488116296](https://cloud.githubusercontent.com/assets/2022691/23340269/98572ffa-fc33-11e6-9b83-09c0057b39c5.png)
 
 ## Version 1
 ### Functionalities
@@ -31,7 +35,7 @@ Be careful before running to add you own API key of themoviedb.org here:
     * Brief synopsis of the movie
     * List of trailers (click on one of them and go to Youtube to see it)
     * List of actors in the case
-    * List of reviews
+    * List of reviews 
 
 ### Screenshots
 ![screenshot_1486650852](https://cloud.githubusercontent.com/assets/2022691/22788072/c01e42e2-eede-11e6-922d-b496b0ab75a7.png)
