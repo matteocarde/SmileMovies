@@ -5,8 +5,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -18,7 +16,7 @@ import com.firebase.jobdispatcher.JobService;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import it.smileapp.smilemovies.MovieActivity;
+import it.smileapp.smilemovies.MovieDetailActivity;
 import it.smileapp.smilemovies.R;
 import it.smileapp.smilemovies.db.MoviesContract;
 
@@ -93,7 +91,7 @@ public class MoviesReminderJobService extends JobService {
                 .setAutoCancel(true);
 
 
-        Intent notificationIntent = new Intent(context, MovieActivity.class);
+        Intent notificationIntent = new Intent(context, MovieDetailActivity.class);
 
         JSONObject movieObj = new JSONObject();
         movieObj.put("id", movieId);

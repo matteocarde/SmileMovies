@@ -5,12 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
-import android.preference.Preference;
-import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.app.ShareCompat;
 import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -58,6 +54,8 @@ public class MainActivity extends AppCompatActivity
 
     private static final int LOADER_ID = 48;
     private String TAG;
+    private GridLayoutManager mLayoutManager;
+    private int mSavedListPostion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,23 +73,28 @@ public class MainActivity extends AppCompatActivity
 
         Context context = MainActivity.this;
 
-        GridLayoutManager layoutManager = new GridLayoutManager(context, calculateNoOfColumns(getBaseContext()));
+        mLayoutManager = new GridLayoutManager(context, calculateNoOfColumns(getBaseContext()));
 
-        mPostersRecyclerView.setLayoutManager(layoutManager);
+        mPostersRecyclerView.setLayoutManager(mLayoutManager);
         mPostersRecyclerView.setHasFixedSize(true);
 
         mPosterAdapter = new PosterAdapter(MainActivity.this, null, MainActivity.this);
         mPostersRecyclerView.setAdapter(mPosterAdapter);
 
 
-        displayFilter(null);
-        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
+        if (savedInstanceState == null) {
+            //Do it only if it's the first onCreate called when the app launches
+            displayFilter(null);
 
-        JobsProvider.initializeNotificationJob(this);
+            PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
+
+            JobsProvider.initializeNotificationJob(this);
+        }
     }
 
     /**
      * Starts the films' list loading based on the passed filter.
+     *
      * @param filter - A string rappresenting the key of the filter (ex: getString(R.string.filter_most_rated_key)
      */
     private void displayFilter(String filter) {
@@ -101,22 +104,11 @@ public class MainActivity extends AppCompatActivity
                 filter :
                 sharedPreferences.getString(getString(R.string.preferences_movie_filter_key), getString(R.string.preferences_movie_filter_default));
 
-        if (defaultFilter.equals(getString(R.string.filter_italian_most_popular_key))) {
-            getMostPopularItalianFilms();
-        } else if (defaultFilter.equals(getString(R.string.filter_italian_most_rated_key))) {
-            getMostRatedItalianFilms();
-        } else if (defaultFilter.equals(getString(R.string.filter_most_rated_key))) {
-            getMostRatedFilms();
-        } else if (defaultFilter.equals(getString(R.string.filter_most_popular_key))) {
-            getMostPopularFilms();
-        } else if (defaultFilter.equals(getString(R.string.filter_my_favourites_key))) {
-            getMyFavourites();
-        }
+        getMoviesByFilter(defaultFilter);
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Log.d(TAG, "Changed shared preference: " + key);
         if (key.equals(getString(R.string.preferences_movie_filter_key))) {
             displayFilter(null);
         }
@@ -124,9 +116,10 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * Calculates the number of columns that can be seen based on the device width.
-     * @see "http://stackoverflow.com/questions/33575731/gridlayoutmanager-how-to-auto-fit-columns"
+     *
      * @param context
      * @return Number of columns that can be nicely seen in the current device width
+     * @see "http://stackoverflow.com/questions/33575731/gridlayoutmanager-how-to-auto-fit-columns"
      */
     public static int calculateNoOfColumns(Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
@@ -178,7 +171,8 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * Starts the AsyncTask to load the filtered movies from the Internet
-     * @param filter - A string rappresenting the key of the filter (ex: getString(R.string.filter_most_rated_key)
+     *
+     * @param filter        - A string rappresenting the key of the filter (ex: getString(R.string.filter_most_rated_key)
      * @param fetchFilmsUrl - The Url (taken from TMD) from which the list has to be taken
      */
     private void getFilteredFilms(String filter, URL fetchFilmsUrl) {
@@ -186,70 +180,40 @@ public class MainActivity extends AppCompatActivity
         new FetchMovies().execute(fetchFilmsUrl);
     }
 
-    /**
-     * Starts the Loader to retrieve the favourite's movie list from the internal database
-     */
-    private void getMyFavourites() {
-        mFilterName.setText(getString(R.string.filter_my_favourites_text));
-        currentFilter = getString(R.string.filter_my_favourites_key);
-        getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
-    }
-
-
-    /**
-     * Starts the request to get the most popular italian films
-     */
-    private void getMostPopularItalianFilms() {
+    private void getMoviesByFilter(String filter) {
         try {
-            URL filterUrl = MoviesDBRequests.getMostPopularItalianFilmsURL();
-            String filterTitle = getString(R.string.filter_italian_most_popular_text);
-            currentFilter = getString(R.string.filter_italian_most_popular_key);
-            getFilteredFilms(filterTitle, filterUrl);
-        } catch (MalformedURLException e) {
-            showError();
-            e.printStackTrace();
-        }
-    }
 
-    /**
-     * Starts the request to get the most rated italian films
-     */
-    private void getMostRatedItalianFilms() {
-        try {
-            URL filterUrl = MoviesDBRequests.getMostRatedItalianFilmsURL();
-            String filterTitle = getString(R.string.filter_italian_most_rated_text);
-            currentFilter = getString(R.string.filter_italian_most_rated_key);
-            getFilteredFilms(filterTitle, filterUrl);
-        } catch (MalformedURLException e) {
-            showError();
-            e.printStackTrace();
-        }
-    }
+            currentFilter = filter;
+            if (filter.equals(getString(R.string.filter_most_popular_key))) {
 
-    /**
-     * Starts the request to get the most rated films
-     */
-    private void getMostRatedFilms() {
-        try {
-            URL filterUrl = MoviesDBRequests.getMostRatedFilmsURL();
-            String filterTitle = getString(R.string.filter_most_rated_text);
-            currentFilter = getString(R.string.filter_most_rated_key);
-            getFilteredFilms(filterTitle, filterUrl);
-        } catch (MalformedURLException e) {
-            showError();
-            e.printStackTrace();
-        }
-    }
+                URL filterUrl = MoviesDBRequests.getMostPopularFilmsURL();
+                String filterTitle = getString(R.string.filter_most_popular_text);
+                getFilteredFilms(filterTitle, filterUrl);
 
-    /**
-     * Starts the request to get the most popular films
-     */
-    private void getMostPopularFilms() {
-        try {
-            URL filterUrl = MoviesDBRequests.getMostPopularFilmsURL();
-            String filterTitle = getString(R.string.filter_most_popular_text);
-            currentFilter = getString(R.string.filter_most_popular_key);
-            getFilteredFilms(filterTitle, filterUrl);
+            } else if (filter.equals(getString(R.string.filter_most_rated_key))) {
+
+                URL filterUrl = MoviesDBRequests.getMostRatedFilmsURL();
+                String filterTitle = getString(R.string.filter_most_rated_text);
+                getFilteredFilms(filterTitle, filterUrl);
+
+            } else if (filter.equals(getString(R.string.filter_italian_most_popular_key))) {
+
+                URL filterUrl = MoviesDBRequests.getMostPopularItalianFilmsURL();
+                String filterTitle = getString(R.string.filter_italian_most_popular_text);
+                getFilteredFilms(filterTitle, filterUrl);
+
+            } else if (filter.equals(getString(R.string.filter_italian_most_rated_key))) {
+
+                URL filterUrl = MoviesDBRequests.getMostRatedItalianFilmsURL();
+                String filterTitle = getString(R.string.filter_italian_most_rated_text);
+                getFilteredFilms(filterTitle, filterUrl);
+
+            } else if (filter.equals(getString(R.string.filter_my_favourites_key))) {
+
+                mFilterName.setText(getString(R.string.filter_my_favourites_text));
+                getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
+
+            }
         } catch (MalformedURLException e) {
             showError();
             e.printStackTrace();
@@ -262,7 +226,7 @@ public class MainActivity extends AppCompatActivity
             JSONObject movie = mMoviesList.getJSONObject(position);
             String stringifiedMovie = movie.toString();
 
-            Intent intent = new Intent(MainActivity.this, MovieActivity.class);
+            Intent intent = new Intent(MainActivity.this, MovieDetailActivity.class);
             intent.putExtra("MOVIE", stringifiedMovie);
 
             startActivity(intent);
@@ -295,7 +259,6 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public Cursor loadInBackground() {
-                Log.d(TAG, "loadInBackgroud is called");
                 return getContentResolver().query(MoviesContract.MoviesEntry.CONTENT_URI, null, null, null, MoviesContract.MoviesEntry._ID + " DESC");
             }
         };
@@ -325,6 +288,8 @@ public class MainActivity extends AppCompatActivity
 
                     mMoviesList = newMoviesList;
                     mPosterAdapter.reloadMoviesList(mMoviesList);
+                    mLayoutManager.scrollToPosition(mSavedListPostion);
+                    mSavedListPostion = 0;
                     showGrid();
                 } else {
                     showEmptyFavourite();
@@ -386,6 +351,8 @@ public class MainActivity extends AppCompatActivity
                 showGrid();
                 mMoviesList = jsonArray;
                 mPosterAdapter.reloadMoviesList(mMoviesList);
+                mLayoutManager.scrollToPosition(mSavedListPostion);
+                mSavedListPostion = 0;
             } else {
                 showError();
             }
@@ -407,19 +374,19 @@ public class MainActivity extends AppCompatActivity
 
         switch (itemId) {
             case R.id.menu_item_sort_popular:
-                getMostPopularFilms();
+                getMoviesByFilter(getString(R.string.filter_most_popular_key));
                 return true;
             case R.id.menu_item_sort_rated:
-                getMostRatedFilms();
+                getMoviesByFilter(getString(R.string.filter_most_rated_key));
                 return true;
             case R.id.menu_item_sort_popular_italian:
-                getMostPopularItalianFilms();
+                getMoviesByFilter(getString(R.string.filter_italian_most_popular_key));
                 return true;
             case R.id.menu_item_sort_rated_italian:
-                getMostRatedItalianFilms();
+                getMoviesByFilter(getString(R.string.filter_italian_most_rated_key));
                 return true;
             case R.id.menu_item_my_favourites:
-                getMyFavourites();
+                getMoviesByFilter(getString(R.string.filter_my_favourites_key));
                 return true;
             case R.id.menu_item_preferences:
                 Intent intent = new Intent(MainActivity.this, PreferencesActivity.class);
@@ -441,8 +408,8 @@ public class MainActivity extends AppCompatActivity
     protected void onSaveInstanceState(Bundle outState) {
 
         outState.putString("filter", currentFilter);
+        outState.putInt("listPosition", mLayoutManager.findFirstVisibleItemPosition());
 
-        Log.d(TAG, "onSaveInstanceState: " + currentFilter);
 
         super.onSaveInstanceState(outState);
     }
@@ -452,8 +419,9 @@ public class MainActivity extends AppCompatActivity
         super.onRestoreInstanceState(savedInstanceState);
 
         currentFilter = savedInstanceState.getString("filter");
-        Log.d(TAG, "onRestoreInstanceState: " + currentFilter);
         displayFilter(currentFilter);
+
+        mSavedListPostion = savedInstanceState.getInt("listPosition");
     }
 
 }

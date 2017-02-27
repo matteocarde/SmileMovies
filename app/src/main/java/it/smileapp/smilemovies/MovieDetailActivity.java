@@ -18,7 +18,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -32,14 +31,10 @@ import it.smileapp.smilemovies.adapters.MovieTabsAdapter;
 import it.smileapp.smilemovies.databinding.ActivityMovieBinding;
 import it.smileapp.smilemovies.db.MoviesContract;
 import it.smileapp.smilemovies.db.MoviesContract.MoviesEntry;
-import it.smileapp.smilemovies.tabs.ActorsTab;
-import it.smileapp.smilemovies.tabs.InfoTab;
-import it.smileapp.smilemovies.tabs.ReviewsTab;
-import it.smileapp.smilemovies.tabs.TrailersTab;
 import it.smileapp.smilemovies.utilities.MoviesDBRequests;
 import it.smileapp.smilemovies.utilities.NetworkUtils;
 
-public class MovieActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks {
+public class MovieDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks {
 
     public JSONObject mMovie;
     public String TAG;
@@ -58,7 +53,7 @@ public class MovieActivity extends AppCompatActivity implements LoaderManager.Lo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Context context = MovieActivity.this;
+        Context context = MovieDetailActivity.this;
         Intent intent = getIntent();
         TAG = context.toString();
 
@@ -274,7 +269,7 @@ public class MovieActivity extends AppCompatActivity implements LoaderManager.Lo
 
                 @Override
                 public Object loadInBackground() {
-                    Log.d(TAG, "loadInBackground is called on MovieActivity");
+                    Log.d(TAG, "loadInBackground is called on MovieDetailActivity");
                     try {
 
                         int movieId = args.getInt("movieId");

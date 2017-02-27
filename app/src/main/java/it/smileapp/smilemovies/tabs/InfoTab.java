@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +14,13 @@ import android.widget.TextView;
 
 import org.json.JSONObject;
 
-import it.smileapp.smilemovies.MovieActivity;
+import it.smileapp.smilemovies.MovieDetailActivity;
 import it.smileapp.smilemovies.R;
 
 public class InfoTab extends Fragment {
 
     private TextView mDescription;
-    private MovieActivity mParent;
+    private MovieDetailActivity mParent;
     private InfoTabBroadcastReceiver mReceiver;
 
     @Override
@@ -34,7 +33,7 @@ public class InfoTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        mParent = (MovieActivity) getActivity();
+        mParent = (MovieDetailActivity) getActivity();
         View view = inflater.inflate(R.layout.fragment_info_tab, container, false);
         mReceiver = new InfoTabBroadcastReceiver();
 

@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
-import it.smileapp.smilemovies.MovieActivity;
 import it.smileapp.smilemovies.R;
 import it.smileapp.smilemovies.tabs.ActorsTab;
 import it.smileapp.smilemovies.tabs.InfoTab;

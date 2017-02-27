@@ -18,7 +18,7 @@ import org.json.JSONObject;
 
 import java.net.URL;
 
-import it.smileapp.smilemovies.MovieActivity;
+import it.smileapp.smilemovies.MovieDetailActivity;
 import it.smileapp.smilemovies.R;
 import it.smileapp.smilemovies.adapters.ReviewAdapter;
 import it.smileapp.smilemovies.utilities.MoviesDBRequests;
@@ -45,7 +45,7 @@ public class ReviewsTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_reviews_tab, container, false);
-        MovieActivity parent = (MovieActivity) getActivity();
+        MovieDetailActivity parent = (MovieDetailActivity) getActivity();
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.tab_reviews_recycler_view);
 
